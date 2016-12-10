@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Metro", "Metro\Metro.csproj", "{91468243-C979-48B7-9A5A-8D663A4335F2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MetroClient", "MetroClient\MetroClient.csproj", "{56C85AC7-5334-46FB-BD72-92FD9A84072A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MetroIntegrationTests", "MetroIntegrationTests\MetroIntegrationTests.csproj", "{9CED93CF-D5FB-44D9-8506-3705B7401969}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{91468243-C979-48B7-9A5A-8D663A4335F2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{91468243-C979-48B7-9A5A-8D663A4335F2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{91468243-C979-48B7-9A5A-8D663A4335F2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{91468243-C979-48B7-9A5A-8D663A4335F2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{56C85AC7-5334-46FB-BD72-92FD9A84072A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{56C85AC7-5334-46FB-BD72-92FD9A84072A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{56C85AC7-5334-46FB-BD72-92FD9A84072A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{56C85AC7-5334-46FB-BD72-92FD9A84072A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9CED93CF-D5FB-44D9-8506-3705B7401969}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9CED93CF-D5FB-44D9-8506-3705B7401969}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9CED93CF-D5FB-44D9-8506-3705B7401969}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9CED93CF-D5FB-44D9-8506-3705B7401969}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
