@@ -27,20 +27,6 @@ namespace Metro.Controllers
 			return View();
 		}
 
-		public ActionResult About()
-		{
-			ViewBag.Message = "Your application description page.";
-
-			return View();
-		}
-
-		public ActionResult Contact()
-		{
-			ViewBag.Message = "Your contact page.";
-
-			return View();
-		}
-
 		public ActionResult Route(string departure, string arrival)
 		{
 			MetroClient.MetroClient client = new MetroClient.MetroClient(new Uri(c_metroUri));
