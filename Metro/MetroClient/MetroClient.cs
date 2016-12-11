@@ -18,6 +18,11 @@ namespace MetroClient
 			return ToRouteDto(GetJson($"routes/{id}"));
 		}
 
+		public StopDto GetStop(string stopId)
+		{
+			return ToStopDto(GetJson($"stops/{stopId}"));
+		}
+
 		public StopsDto GetStops(string routeId)
 		{
 			return ToStopsDto(GetJson($"routes/{routeId}/stops"));
@@ -57,12 +62,16 @@ namespace MetroClient
 		{
 			return new StopDto
 			{
-				Id = stop["id"] != null
-					? int.Parse(stop["id"].ToString())
-					: (int?) null,
+				Id = stop["id"] == null
+					? (int?) null
+					: int.Parse(stop["id"].ToString()),
 				DisplayName = stop["display_name"].ToString(),
-				Latitude = double.Parse(stop["latitude"].ToString()),
-				Longitude = double.Parse(stop["longitude"].ToString())
+				Latitude = stop["latitude"] == null
+					? (double?) null
+					: double.Parse(stop["latitude"].ToString() ),
+				Longitude = stop["longitude"] == null
+					? (double?) null
+					: double.Parse(stop["longitude"].ToString())
 			};
 		}
 
@@ -74,9 +83,9 @@ namespace MetroClient
 				Heading = int.Parse(vehicle["heading"].ToString()),
 				RunId = vehicle["run_id"]?.ToString() ?? "",
 				Predictable = ToBool(vehicle["predictable"].ToString()),
-				RouteId =  vehicle["route_id"] != null
-					? int.Parse(vehicle["route_id"].ToString())
-					: (int?) null,
+				RouteId =  vehicle["route_id"] == null
+					? (int?) null
+					: int.Parse(vehicle["route_id"].ToString()),
 				SecondsSinceReport = int.Parse(vehicle["seconds_since_report"].ToString()),
 				Latitude = double.Parse(vehicle["latitude"].ToString()),
 				Longitude = double.Parse(vehicle["longitude"].ToString())

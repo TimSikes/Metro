@@ -1,7 +1,7 @@
 ﻿
 function submitStops() {
-	var departure = $('#departureInput').val();
-	var arrival = $('#arrivalInput').val();
+	var departure = $('#departureSelect').val();
+	var arrival = $('#arrivalSelect').val();
 
 	console.log("departure");
 	console.log(departure);
