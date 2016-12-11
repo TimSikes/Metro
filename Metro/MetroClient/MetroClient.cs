@@ -27,6 +27,11 @@ namespace MetroClient
 			return ToVehichlesDto(GetJson($"routes/{routeId}/vehicles"));
 		}
 
+		public PredictionsDto GetPredictions(string stopId)
+		{
+			return ToPredictionsDto(GetJson($"stops/{stopId}/predictions/"));
+		}
+
 		private static RouteDto ToRouteDto(JObject route)
 		{
 			return new RouteDto
@@ -59,10 +64,25 @@ namespace MetroClient
 				Heading = int.Parse(vehicle["heading"].ToString()),
 				RunId = vehicle["run_id"].ToString(),
 				Predictable = ToBool(vehicle["predictable"].ToString()),
-				RouteId = int.Parse(vehicle["route_id"].ToString()),
+				RouteId =  vehicle["route_id"] != null
+					? int.Parse(vehicle["route_id"].ToString())
+					: (int?) null,
 				SecondsSinceReport = int.Parse(vehicle["seconds_since_report"].ToString()),
 				Latitude = double.Parse(vehicle["latitude"].ToString()),
 				Longitude = double.Parse(vehicle["longitude"].ToString())
+			};
+		}
+
+		private static PredictionDto ToPredictionDto(JToken prediction)
+		{
+			return new PredictionDto
+			{
+				BlockId = prediction["block_id"].ToString(),
+				RunId = prediction["run_id"].ToString(),
+				RouteId = int.Parse(prediction["route_id"].ToString()),
+				IsDeparting = ToBool(prediction["is_departing"].ToString()),
+				Minutes = int.Parse(prediction["minutes"].ToString()),
+				Seconds = int.Parse(prediction["seconds"].ToString())
 			};
 		}
 
@@ -79,6 +99,14 @@ namespace MetroClient
 			return new VehiclesDtos
 			{
 				Vehicles = vehicles["items"].Select(ToVehicleDto)
+			};
+		}
+
+		private static PredictionsDto ToPredictionsDto(JObject predictions)
+		{
+			return new PredictionsDto
+			{
+				Predictions = predictions["items"].Select(ToPredictionDto)
 			};
 		}
 

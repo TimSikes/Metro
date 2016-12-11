@@ -8,7 +8,7 @@
 		public double Latitude { get; set; }
 		public double Longitude { get; set; }
 		public int Heading { get; set; }
-		public int RouteId { get; set; }
+		public int? RouteId { get; set; }
 		public bool Predictable { get; set; }
 	}
 }

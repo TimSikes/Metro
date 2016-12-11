@@ -1,0 +1,21 @@
+﻿@{
+	ViewBag.Title = "Departure and Arrival";
+}
+@Scripts.Render("~/bundles/overview")
+
+<div class="jumbotron">
+	<h1>Metro!</h1>
+	<p class="lead"></p>
+</div>
+
+<div class="row">
+	<div class="col-md-4">
+		<h2>Departure @ViewBag.Departure</h2>
+	</div>
+	<div class="col-md-4">
+		<h2>Arrival @ViewBag.Arrival</h2>
+	</div>
+	<div class="col-md-4">
+		<h2>Information!</h2>
+	</div>
+</div>

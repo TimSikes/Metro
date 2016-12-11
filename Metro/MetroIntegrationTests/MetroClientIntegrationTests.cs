@@ -45,6 +45,17 @@ namespace MetroIntegrationTests
 			Assert.IsTrue(stops.Vehicles.Any());
 		}
 
+		[TestCase("6033")]
+		[TestCase("16927")]
+		[TestCase("36587")]
+		public void GetPredictionsForStop(string stopId)
+		{
+			MetroClient.MetroClient client = new MetroClient.MetroClient(new Uri(c_metroUri));
+
+			PredictionsDto predictions = client.GetPredictions(stopId);
+			Assert.IsTrue(predictions.Predictions.Any());
+		}
+
 
 		private const string c_metroUri = "http://api.metro.net/agencies/lametro/";
 	}

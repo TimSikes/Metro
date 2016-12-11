@@ -45,6 +45,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="MetroClient.cs" />
+    <Compile Include="Models\PredictionsDto.cs" />
+    <Compile Include="Models\PredictionDto.cs" />
     <Compile Include="Models\RouteDto.cs" />
     <Compile Include="Models\StopDto.cs" />
     <Compile Include="Models\StopsDto.cs" />
