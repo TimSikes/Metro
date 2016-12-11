@@ -61,6 +61,7 @@ namespace Metro.Services
 			};
 		}
 
+		// Normally I would use a TypeRegistry to populate these sorts of classes. (Both so the configuration is all in one place and so we don't have this class as static) But I had some trouble getting that hooked up into the Global.ASCX so I dropped this due to time constraints.
 		private static readonly MetroClient.MetroClient s_metroClient = new MetroClient.MetroClient(new Uri(Properties.Settings.Default.MetroUri));
 	}
 }
