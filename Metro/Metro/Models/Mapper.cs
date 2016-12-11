@@ -1,15 +1,15 @@
-﻿using MetroClient.Models;
+﻿using Metro.Services.Models;
 
 namespace Metro.Models
 {
 	public static class Mapper
 	{
-		public static StopViewModel ToStopViewModel(StopDto stopDto)
+		public static StopViewModel ToStopViewModel(Stop stop)
 		{
 			return new StopViewModel
 			{
-				Id = stopDto.Id.ToString(),
-				Title = stopDto.DisplayName
+				Id = stop.Id.ToString(),
+				Title = stop.DisplayName
 			};
 		}
 	}
