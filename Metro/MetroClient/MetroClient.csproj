@@ -54,7 +54,6 @@
     <Compile Include="Models\VehicleDto.cs" />
     <Compile Include="Models\VehiclesDtos.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Response.cs" />
     <Compile Include="WebServiceClient.cs" />
   </ItemGroup>
   <ItemGroup>

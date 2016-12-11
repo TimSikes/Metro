@@ -28,6 +28,9 @@ namespace MetroClient
 			return ToStopsDto(GetJson($"routes/{routeId}/stops"));
 		}
 
+
+		// TODO: Remove unused code.
+		// (The scope of the project made it look like this information would be useful, but the API doesn't offer very meaningful information for this Vehicles object.
 		public VehiclesDtos GetVehicles(string routeId)
 		{
 			return ToVehichlesDto(GetJson($"routes/{routeId}/vehicles"));
@@ -60,6 +63,7 @@ namespace MetroClient
 
 		private static StopDto ToStopDto(JToken stop)
 		{
+			// Some of these values I would expect to be required values. Better documentation from the API would allow me to know which of these fields are required, and which are optional.  If I owned the API, I would let exceptions fly whenever a field is missing that is expected.
 			return new StopDto
 			{
 				Id = stop["id"] == null

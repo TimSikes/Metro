@@ -7,7 +7,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Metro", "Metro\Metro.csproj
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MetroClient", "MetroClient\MetroClient.csproj", "{56C85AC7-5334-46FB-BD72-92FD9A84072A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MetroIntegrationTests", "MetroIntegrationTests\MetroIntegrationTests.csproj", "{9CED93CF-D5FB-44D9-8506-3705B7401969}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MetroClientIntegrationTests", "MetroIntegrationTests\MetroClientIntegrationTests.csproj", "{9CED93CF-D5FB-44D9-8506-3705B7401969}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MetroUtility", "MetroUtility\MetroUtility.csproj", "{DD180AED-D417-49AD-B822-5248904E6E6D}"
 EndProject

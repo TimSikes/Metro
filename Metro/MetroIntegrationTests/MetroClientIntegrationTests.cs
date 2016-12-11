@@ -7,7 +7,7 @@ using Assert = Microsoft.VisualStudio.TestTools.UnitTesting.Assert;
 namespace MetroIntegrationTests
 {
 	[TestFixture]
-	public class UnitTest1
+	public class IntegrationTests
 	{
 		
 		[TestCase("704")]
