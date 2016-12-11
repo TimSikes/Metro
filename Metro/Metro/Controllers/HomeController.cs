@@ -46,7 +46,7 @@ namespace Metro.Controllers
 			ViewBag.NextBusMessage = GetNextBusDepartureMessage(predictions);
 			ViewBag.OtherBusTimes = GetOtherBusTimes(predictions);
 
-			ViewBag.Vehicles = client.GetVehicles(c_routeId).Vehicles.ToList();
+			ViewBag.Vehicles = vehicles.ToList();
 			ViewBag.Message = travelInformation.Message;
 			ViewBag.TravelTime = $"Your trip will take you {travelInformation.TravelDurationMinutes} minutes!";
 

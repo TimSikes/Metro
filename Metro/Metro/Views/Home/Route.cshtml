@@ -7,10 +7,12 @@
 @Html.Partial("_Alert");
 
 <div class="jumbotron">
-	<h1>Metro!</h1>
+	<h1>@ViewBag.NextBusMessage</h1>
+	<p class="lead">Other busses coming in @ViewBag.NextBusMessage</p>
 	<p class="lead">@ViewBag.TravelTime</p>
 </div>
 
+<!--
 <div class="row">
 	<div class="col-md-4">
 		<h2>@ViewBag.NextBusMessage</h2>
@@ -23,3 +25,4 @@
 		<h2>Information!</h2>
 	</div>
 </div>
+-->
