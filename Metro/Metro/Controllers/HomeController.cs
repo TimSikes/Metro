@@ -31,13 +31,14 @@ namespace Metro.Controllers
 			ViewBag.NextBusMessage = GetNextBusDepartureMessage(predictions.First());
 			ViewBag.OtherBusTimes = GetOtherBusTimes(predictions);
 			ViewBag.Message = travelInformation.Message;
-			ViewBag.TravelTime = $"Your trip will take you {travelInformation.TravelDurationMinutes} minutes!";
+			ViewBag.TravelTimeMinutes = travelInformation.TravelDurationMinutes;
 			ViewBag.DepartureTitle = departureTitle;
 			ViewBag.ArrivalTitle = arrivaTitle;
 
 			return View();
 		}
 
+		//TODO: Handle some of this view logic in a different area.
 		private static string GetNextBusDepartureMessage(Prediction prediction)
 		{
 			if (prediction.Minutes < 1)
@@ -49,6 +50,8 @@ namespace Metro.Controllers
 
 		private static string GetOtherBusTimes(ReadOnlyCollection<Prediction> predictions)
 		{
+			//TODO: Include "and" in the list
+			//TODO: Handle the case where there are no more busses coming.
 			return string.Join(", ", predictions.Skip(1).Select(p => p.Minutes));
 		}
 
