@@ -2,7 +2,7 @@
 {
 	public sealed class IndexViewModel
 	{
-		public RouteViewModel RouteViewModel { get; set; }
-		public DepartureAndArrivalViewModel DepartureAndArrivalViewModel { get; set; }
+		public RouteViewModel Route { get; set; }
+		public DepartureAndArrivalViewModel DepartureAndArrival { get; set; }
 	}
 }

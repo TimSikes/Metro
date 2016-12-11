@@ -55,10 +55,10 @@ namespace MetroClient
 		{
 			return new RouteDto
 			{
-				BackgroundColor = route["bg_color"].ToString(),
-				DisplayName = route["display_name"].ToString(),
-				ForegroundColor = route["fg_color"].ToString(),
-				Id = int.Parse(route["id"].ToString())
+				BackgroundColor = ConversionUtility.GetValueOrNull(route["bg_color"]),
+				DisplayName = ConversionUtility.GetValueOrNull(route["display_name"]),
+				ForegroundColor = ConversionUtility.GetValueOrNull(route["fg_color"]),
+				Id = ConversionUtility.GetValueOrNull(route["id"], ConversionUtility.ParseInt),
 			};
 		}
 
@@ -67,16 +67,10 @@ namespace MetroClient
 			// Some of these values I would expect to be required values. Better documentation from the API would allow me to know which of these fields are required, and which are optional.  If I owned the API, I would let exceptions fly whenever a field is missing that is expected.
 			return new StopDto
 			{
-				Id = stop["id"] == null
-					? (int?) null
-					: int.Parse(stop["id"].ToString()),
-				DisplayName = stop["display_name"].ToString(),
-				Latitude = stop["latitude"] == null
-					? (double?) null
-					: double.Parse(stop["latitude"].ToString() ),
-				Longitude = stop["longitude"] == null
-					? (double?) null
-					: double.Parse(stop["longitude"].ToString())
+				Id = ConversionUtility.GetValueOrNull(stop["id"], ConversionUtility.ParseInt),
+				DisplayName = ConversionUtility.GetValueOrNull(stop["display_name"]),
+				Latitude = ConversionUtility.GetValueOrNull(stop["latitude"], ConversionUtility.ParseDouble),
+				Longitude = ConversionUtility.GetValueOrNull(stop["longitude"], ConversionUtility.ParseDouble),
 			};
 		}
 
@@ -84,16 +78,14 @@ namespace MetroClient
 		{
 			return new VehicleDto
 			{
-				Id = int.Parse(vehicle["id"].ToString()),
-				Heading = int.Parse(vehicle["heading"].ToString()),
-				RunId = vehicle["run_id"]?.ToString() ?? "",
-				Predictable = ToBool(vehicle["predictable"].ToString()),
-				RouteId =  vehicle["route_id"] == null
-					? (int?) null
-					: int.Parse(vehicle["route_id"].ToString()),
-				SecondsSinceReport = int.Parse(vehicle["seconds_since_report"].ToString()),
-				Latitude = double.Parse(vehicle["latitude"].ToString()),
-				Longitude = double.Parse(vehicle["longitude"].ToString())
+				Id = ConversionUtility.GetValueOrNull(vehicle["id"], ConversionUtility.ParseInt),
+				Heading = ConversionUtility.GetValueOrNull(vehicle["heading"], ConversionUtility.ParseInt),
+				RunId = ConversionUtility.GetValueOrNull(vehicle["run_id"]),
+				Predictable = ConversionUtility.GetValueOrNull(vehicle["predictable"], ConversionUtility.ToBool),
+				RouteId =  ConversionUtility.GetValueOrNull(vehicle["route_id"], ConversionUtility.ParseInt),
+				SecondsSinceReport = ConversionUtility.GetValueOrNull(vehicle["seconds_since_report"], ConversionUtility.ParseInt),
+				Latitude = ConversionUtility.GetValueOrNull(vehicle["latitude"], ConversionUtility.ParseDouble),
+				Longitude = ConversionUtility.GetValueOrNull(vehicle["longitude"], ConversionUtility.ParseDouble),
 			};
 		}
 
@@ -101,12 +93,12 @@ namespace MetroClient
 		{
 			return new PredictionDto
 			{
-				BlockId = prediction["block_id"].ToString(),
-				RunId = prediction["run_id"].ToString(),
-				RouteId = int.Parse(prediction["route_id"].ToString()),
-				IsDeparting = ToBool(prediction["is_departing"].ToString()),
-				Minutes = int.Parse(prediction["minutes"].ToString()),
-				Seconds = int.Parse(prediction["seconds"].ToString())
+				BlockId = ConversionUtility.GetValueOrNull(prediction["block_id"]),
+				RunId = ConversionUtility.GetValueOrNull(prediction["run_id"]),
+				RouteId = ConversionUtility.GetValueOrNull(prediction["route_id"], ConversionUtility.ParseInt),
+				IsDeparting = ConversionUtility.GetValueOrNull(prediction["is_departing"], ConversionUtility.ToBool),
+				Minutes = ConversionUtility.GetValueOrNull(prediction["minutes"], ConversionUtility.ParseInt),
+				Seconds = ConversionUtility.GetValueOrNull(prediction["seconds"], ConversionUtility.ParseInt),
 			};
 		}
 
@@ -132,11 +124,6 @@ namespace MetroClient
 			{
 				Predictions = predictions["items"].Select(ToPredictionDto).EmptyIfNull()
 			};
-		}
-
-		private static bool ToBool(string value)
-		{
-			return value == "true";
 		}
 	}
 }

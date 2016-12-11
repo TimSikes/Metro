@@ -8,8 +8,8 @@
 		public int TravelTimeMinutes { get; set; }
 		public string DepartureTitle { get; set; }
 		public string ArrivalTitle { get; set; }
-		public DepartureAndArrivalViewModel DepartureAndArrivalViewModel { get; set; }
+		public DepartureAndArrivalViewModel DepartureAndArrival { get; set; }
 		public ErrorViewModel Error { get; set; }
-		public RouteViewModel RouteViewModel { get; set; }
+		public RouteViewModel Route { get; set; }
 	}
 }

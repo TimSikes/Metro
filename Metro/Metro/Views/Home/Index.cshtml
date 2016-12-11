@@ -2,9 +2,9 @@
 @model IndexViewModel
 @Scripts.Render("~/bundles/overview")
 
-<div class="jumbotron" style="background-color: @Model.RouteViewModel.BackgroundColor; color: @Model.RouteViewModel.ForegroundColor">
-	<h1>@Model.RouteViewModel.Name</h1>
+<div class="jumbotron" style="background-color: @Model.Route.BackgroundColor; color: @Model.Route.ForegroundColor">
+	<h1>@Model.Route.Name</h1>
 	<p class="lead">Select a departure and arrival station below to get information.</p>
 </div>
 
-@Html.Partial("_StopSubmission", Model.DepartureAndArrivalViewModel)
+@Html.Partial("_StopSubmission", Model.DepartureAndArrival)

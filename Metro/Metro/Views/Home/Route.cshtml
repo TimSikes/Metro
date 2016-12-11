@@ -13,11 +13,11 @@
 	<h2>Trip information from @Model.DepartureTitle to @Model.ArrivalTitle</h2>
 </div>
 
-<div class="jumbotron" style="background-color: @Model.RouteViewModel.BackgroundColor; color: @Model.RouteViewModel.ForegroundColor">
+<div class="jumbotron" style="background-color: @Model.Route.BackgroundColor; color: @Model.Route.ForegroundColor">
 	<h1 >@Model.NextBusMessage</h1>
 	<p class="lead">Other busses coming in @Model.OtherBusTimes minutes.</p>
 	<p class="lead">Your trip will take you @Model.TravelTimeMinutes minutes!</p>
 </div>
 }
 
-@Html.Partial("_StopSubmission", Model.DepartureAndArrivalViewModel)
+@Html.Partial("_StopSubmission", Model.DepartureAndArrival)

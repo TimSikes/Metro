@@ -9,6 +9,12 @@ namespace Metro.Services
 {
 	public static class MetroService
 	{
+		//TODO: Better handle error messages from the client.
+		// I like a model that looks a little like this:
+		// OperationResult<T, ErrorResponse> (T being the return value)
+		// ErrorResponse containing the error code and message.
+		// Pushing this all the way up to the controller/view allows us to more appropriately handle errors.
+
 		public static ReadOnlyCollection<Stop> GetStops(string routeId)
 		{
 			return s_metroClient.GetStops(routeId).Stops.Select(ToStop).Where(s => s.Id != null).ToSafeReadOnlyCollection();
@@ -55,7 +61,7 @@ namespace Metro.Services
 			return new Stop
 			{
 				DisplayName = stop.DisplayName,
-				Id = stop.Id
+				Id = stop.Id.ToString()
 			};
 		}
 

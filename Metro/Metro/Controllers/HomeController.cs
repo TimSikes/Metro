@@ -22,8 +22,8 @@ namespace Metro.Controllers
 
 			IndexViewModel indexViewModel = new IndexViewModel
 			{
-				RouteViewModel = Mapper.ToRouteViewModel(route),
-				DepartureAndArrivalViewModel = GetDeparturesAndArrivals(stops)
+				Route = Mapper.ToRouteViewModel(route),
+				DepartureAndArrival = GetDeparturesAndArrivals(stops)
 			};
 
 			return View(indexViewModel);
@@ -31,6 +31,7 @@ namespace Metro.Controllers
 
 		public ActionResult Route(string departure, string arrival)
 		{
+			//TODO: Optimization: Some of this data is grabbed on each page load, and could be better passed around to avoid extra calls to the external service.
 			ReadOnlyCollection<Stop> stops = MetroService.GetStops(s_routeId);
 			DepartureAndArrivalViewModel departureAndArrivalViewModel = GetDeparturesAndArrivals(stops.Select(Mapper.ToStopViewModel).ToSafeReadOnlyCollection());
 
@@ -42,7 +43,7 @@ namespace Metro.Controllers
 					{
 						Message = "Please select a valid arrival and destination"
 					},
-					DepartureAndArrivalViewModel = departureAndArrivalViewModel
+					DepartureAndArrival = departureAndArrivalViewModel
 				});
 			}
 
@@ -64,8 +65,8 @@ namespace Metro.Controllers
 				TravelTimeMinutes = travelInformation.TravelDurationMinutes,
 				DepartureTitle = departureTitle,
 				ArrivalTitle = arrivaTitle,
-				DepartureAndArrivalViewModel = departureAndArrivalViewModel,
-				RouteViewModel = Mapper.ToRouteViewModel(route),
+				DepartureAndArrival = departureAndArrivalViewModel,
+				Route = Mapper.ToRouteViewModel(route),
 			};
 
 			return View(journeyInfo);
@@ -91,10 +92,12 @@ namespace Metro.Controllers
 		//TODO: Handle some of this view logic in a different area.
 		private static string GetNextBusDepartureMessage(Prediction prediction)
 		{
-			if (prediction.Minutes < 1)
+			if (!prediction.Minutes.HasValue && !prediction.Seconds.HasValue)
+				return "The next bus time is unknown";
+			if (prediction.Minutes.HasValue && prediction.Minutes < 1)
 				return $"Hurry! Your next bus leaves in {prediction.Seconds} seconds!";
 
-			int minutes = prediction.Minutes;
+			int? minutes = prediction.Minutes;
 			return $"Your next bus leaves in {minutes} minute{(minutes != 1 ? "s" : "" )}";
 		}
 
