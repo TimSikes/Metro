@@ -43,6 +43,7 @@ namespace MetroClient
 
 		public TravelInformationDto GetTravelInformationDto(string routeId, string departureStopId, string arrivalStopId)
 		{
+			// I can't find a working example of a messasge object, and their trip making seems defunct so, I just made this up.
 			return new TravelInformationDto
 			{
 				Message = "Looks like the bus driver is having a bad day today...",

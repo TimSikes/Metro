@@ -1,6 +1,7 @@
-﻿@if (ViewBag.Message != string.Empty)
+﻿@model Metro.Models.WarningViewModel
+@if (Model.Message != string.Empty)
 {
-	<div class="alert alert-warning" id="dataWarehouseLoadStatusMessage">
-		<p>@ViewBag.Message</p>
+	<div class="alert alert-warning" id="warning">
+		<p>@Model.Message</p>
 	</div>
 }

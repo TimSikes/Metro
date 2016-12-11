@@ -11,7 +11,7 @@ namespace Metro.Services
 	{
 		public static ReadOnlyCollection<Stop> GetStops(string routeId)
 		{
-			return s_metroClient.GetStops(routeId).Stops.Select(ToStop).ToSafeReadOnlyCollection();
+			return s_metroClient.GetStops(routeId).Stops.Select(ToStop).Where(s => s.Id != null).ToSafeReadOnlyCollection();
 		}
 
 		public static Stop GetStop(string stopId)
@@ -32,6 +32,22 @@ namespace Metro.Services
 		public static TravelInformation GetTravelInformationDto(string routeId, string departureStopId, string arrivalStopId)
 		{
 			return ToTravelInformation(s_metroClient.GetTravelInformationDto(routeId, departureStopId, arrivalStopId));
+		}
+
+		public static Route GetRoute(string routeId)
+		{
+			return ToRoute(s_metroClient.GetRoute(routeId));
+		}
+
+		private static Route ToRoute(RouteDto route)
+		{
+			return new Route
+			{
+				Id = route.Id.ToString(),
+				DisplayName = route.DisplayName,
+				BackgroundColor = route.BackgroundColor,
+				ForegroundColor = route.ForegroundColor,
+			};
 		}
 
 		private static Stop ToStop(StopDto stop)

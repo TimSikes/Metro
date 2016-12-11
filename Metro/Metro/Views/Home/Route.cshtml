@@ -1,32 +1,23 @@
-﻿@using MetroClient.Models
-@{
-	ViewBag.Title = "Departure and Arrival";
-}
+﻿@model Metro.Models.JourneyInformationViewModel
 @Scripts.Render("~/bundles/overview")
 
-@Html.Partial("_Alert")
+@if (Model.Error != null)
+{
+	@Html.Partial("_Error", Model.Error)
+}
+@if (Model.Error == null)
+{
 
+@Html.Partial("_Alert", Model.Message)
 <div>
-	<h2>Trip information from @ViewBag.DepartureTitle to @ViewBag.ArrivalTitle</h2>
+	<h2>Trip information from @Model.DepartureTitle to @Model.ArrivalTitle</h2>
 </div>
 
-<div class="jumbotron">
-	<h1>@ViewBag.NextBusMessage</h1>
-	<p class="lead">Other busses coming in @ViewBag.OtherBusTimes minutes.</p>
-	<p class="lead">Your trip will take you @ViewBag.TravelTime minutes!</p>
+<div class="jumbotron" style="background-color: @Model.RouteViewModel.BackgroundColor; color: @Model.RouteViewModel.ForegroundColor">
+	<h1 >@Model.NextBusMessage</h1>
+	<p class="lead">Other busses coming in @Model.OtherBusTimes minutes.</p>
+	<p class="lead">Your trip will take you @Model.TravelTimeMinutes minutes!</p>
 </div>
+}
 
-<!--
-<div class="row">
-	<div class="col-md-4">
-		<h2>@ViewBag.NextBusMessage</h2>
-		<p>Other busses coming in @ViewBag.OtherBusTimes minutes</p>
-	</div>
-	<div class="col-md-4">
-		<h2>Arrival @ViewBag.Arrival</h2>
-	</div>
-	<div class="col-md-4">
-		<h2>Information!</h2>
-	</div>
-</div>
--->
+@Html.Partial("_StopSubmission", Model.DepartureAndArrivalViewModel)

@@ -1,0 +1,16 @@
+﻿@using Metro.Models
+@model DepartureAndArrivalViewModel
+
+<div class="row">
+	<div class="col-md-4">
+		<h2>Select a departure stop</h2>
+		@Html.Partial("_StopSelector", Model.Departure)
+	</div>
+	<div class="col-md-4">
+		<h2>Select an arrival stop </h2>
+		@Html.Partial("_StopSelector", Model.Arrival)
+	</div>
+	<div class="col-md-4">
+		<button id="submitButton" onclick="submitStops()" class="btn-primary">Submit</button>
+	</div>
+</div>

@@ -1,0 +1,9 @@
+﻿@using Metro.Models
+@model StopSelectorViewModel
+
+<select class="form-control" id="@(Model.SelectorName)Select">
+	@foreach (StopViewModel stop in Model.Stops)
+			{
+		<option value="@stop.Id">@stop.Title</option>
+			}
+</select>

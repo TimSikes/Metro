@@ -4,6 +4,8 @@ using System.Web.Mvc;
 using Metro.Models;
 using Metro.Services;
 using Metro.Services.Models;
+using Microsoft.Ajax.Utilities;
+using WebGrease.Css.Extensions;
 
 namespace Metro.Controllers
 {
@@ -15,27 +17,75 @@ namespace Metro.Controllers
 
 		public ActionResult Index()
 		{
-			ReadOnlyCollection<Stop> stops = MetroService.GetStops(s_routeId);
-			ViewBag.Stops = stops.Select(Mapper.ToStopViewModel);
+			ReadOnlyCollection<StopViewModel> stops = MetroService.GetStops(s_routeId).Select(Mapper.ToStopViewModel).ToSafeReadOnlyCollection();
+			Route route = MetroService.GetRoute(s_routeId);
 
-			return View();
+			IndexViewModel indexViewModel = new IndexViewModel
+			{
+				RouteViewModel = Mapper.ToRouteViewModel(route),
+				DepartureAndArrivalViewModel = GetDeparturesAndArrivals(stops)
+			};
+
+			return View(indexViewModel);
 		}
 
 		public ActionResult Route(string departure, string arrival)
 		{
+			ReadOnlyCollection<Stop> stops = MetroService.GetStops(s_routeId);
+			DepartureAndArrivalViewModel departureAndArrivalViewModel = GetDeparturesAndArrivals(stops.Select(Mapper.ToStopViewModel).ToSafeReadOnlyCollection());
+
+			if (departure.IsNullOrWhiteSpace() || arrival.IsNullOrWhiteSpace())
+			{
+				return View(new JourneyInformationViewModel
+				{
+					Error = new ErrorViewModel
+					{
+						Message = "Please select a valid arrival and destination"
+					},
+					DepartureAndArrivalViewModel = departureAndArrivalViewModel
+				});
+			}
+
 			ReadOnlyCollection<Prediction> predictions = MetroService.GetPredictions(s_routeId, departure);
 			TravelInformation travelInformation = MetroService.GetTravelInformationDto(s_routeId, departure, arrival);
-			string departureTitle =  MetroService.GetStop(departure).DisplayName;
-			string arrivaTitle = MetroService.GetStop(arrival).DisplayName;
+			Route route = MetroService.GetRoute(s_routeId);
 
-			ViewBag.NextBusMessage = GetNextBusDepartureMessage(predictions.First());
-			ViewBag.OtherBusTimes = GetOtherBusTimes(predictions);
-			ViewBag.Message = travelInformation.Message;
-			ViewBag.TravelTimeMinutes = travelInformation.TravelDurationMinutes;
-			ViewBag.DepartureTitle = departureTitle;
-			ViewBag.ArrivalTitle = arrivaTitle;
+			string departureTitle = stops.First(s => s.Id.ToString() == departure).DisplayName;
+			string arrivaTitle = stops.First(s => s.Id.ToString() == arrival).DisplayName;
 
-			return View();
+			JourneyInformationViewModel journeyInfo = new JourneyInformationViewModel
+			{
+				NextBusMessage = GetNextBusDepartureMessage(predictions.First()),
+				OtherBusTimes = GetOtherBusTimes(predictions),
+				Message = new WarningViewModel
+				{
+					Message = travelInformation.Message
+				},
+				TravelTimeMinutes = travelInformation.TravelDurationMinutes,
+				DepartureTitle = departureTitle,
+				ArrivalTitle = arrivaTitle,
+				DepartureAndArrivalViewModel = departureAndArrivalViewModel,
+				RouteViewModel = Mapper.ToRouteViewModel(route),
+			};
+
+			return View(journeyInfo);
+		}
+
+		private static DepartureAndArrivalViewModel GetDeparturesAndArrivals(ReadOnlyCollection<StopViewModel> stops)
+		{
+			return new DepartureAndArrivalViewModel
+			{
+				Arrival = new StopSelectorViewModel
+				{
+					Stops = stops,
+					SelectorName = "arrival"
+				},
+				Departure = new StopSelectorViewModel
+				{
+					Stops = stops,
+					SelectorName = "departure"
+				}
+			};
 		}
 
 		//TODO: Handle some of this view logic in a different area.

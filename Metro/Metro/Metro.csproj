@@ -116,8 +116,15 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\DepartureAndArrivalViewModel.cs" />
+    <Compile Include="Models\ErrorViewModel.cs" />
+    <Compile Include="Models\IndexViewModel.cs" />
+    <Compile Include="Models\JourneyInformationViewModel.cs" />
     <Compile Include="Models\Mapper.cs" />
+    <Compile Include="Models\RouteViewModel.cs" />
+    <Compile Include="Models\StopSelectorViewModel.cs" />
     <Compile Include="Models\StopViewModel.cs" />
+    <Compile Include="Models\WarningViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -126,6 +133,7 @@
     </Compile>
     <Compile Include="Services\MetroService.cs" />
     <Compile Include="Services\Models\Prediction.cs" />
+    <Compile Include="Services\Models\Route.cs" />
     <Compile Include="Services\Models\Stop.cs" />
     <Compile Include="Services\Models\TravelInformation.cs" />
     <Compile Include="Startup.cs" />
@@ -171,6 +179,9 @@
     <Content Include="Views\Home\Route.cshtml" />
     <Content Include="Views\Home\_Alert.cshtml" />
     <Content Include="_MSBuild\NuGetPackageAndPublish.targets" />
+    <Content Include="Views\Home\_StopSelector.cshtml" />
+    <Content Include="Views\Home\_StopSubmission.cshtml" />
+    <Content Include="Views\Home\_Error.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

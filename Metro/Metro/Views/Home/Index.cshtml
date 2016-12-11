@@ -1,34 +1,10 @@
 ﻿@using Metro.Models
-@{
-    ViewBag.Title = "Home Page";
-}
+@model IndexViewModel
 @Scripts.Render("~/bundles/overview")
 
-<div class="jumbotron">
-    <h1>Los Angeles route 704 information:</h1>
-    <p class="lead">Select a departure and arrival station below to get information.</p>
+<div class="jumbotron" style="background-color: @Model.RouteViewModel.BackgroundColor; color: @Model.RouteViewModel.ForegroundColor">
+	<h1>@Model.RouteViewModel.Name</h1>
+	<p class="lead">Select a departure and arrival station below to get information.</p>
 </div>
 
-<div class="row">
-	<div class="col-md-4">
-		<h2>Select a departure stop</h2>
-		<select class="form-control" id="departureSelect">
-			@foreach (StopViewModel stop in ViewBag.Stops)
-			{
-				<option value="@stop.Id">@stop.Title</option>
-			}
-		</select>
-	</div>
-	<div class="col-md-4">
-		<h2>Select an arrival stop </h2>
-		<select class="form-control" id="arrivalSelect">
-			@foreach (StopViewModel stop in ViewBag.Stops)
-			{
-				<option value="@stop.Id">@stop.Title</option>
-			}
-		</select>
-	</div>
-	<div class="col-md-4">
-		<button id="submitButton" onclick="submitStops()" class="btn-primary">Submit</button>
-	</div>
-</div>
+@Html.Partial("_StopSubmission", Model.DepartureAndArrivalViewModel)
