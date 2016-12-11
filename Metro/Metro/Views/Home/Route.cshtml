@@ -1,16 +1,20 @@
-﻿@{
+﻿@using MetroClient.Models
+@{
 	ViewBag.Title = "Departure and Arrival";
 }
-@Scripts.Render("~/bundles/overview")
+@Scripts.Render("~/bundles/overview");
+
+@Html.Partial("_Alert");
 
 <div class="jumbotron">
 	<h1>Metro!</h1>
-	<p class="lead"></p>
+	<p class="lead">@ViewBag.TravelTime</p>
 </div>
 
 <div class="row">
 	<div class="col-md-4">
-		<h2>Departure @ViewBag.Departure</h2>
+		<h2>@ViewBag.NextBusMessage</h2>
+		<p>Other busses coming in @ViewBag.OtherBusTimes minutes</p>
 	</div>
 	<div class="col-md-4">
 		<h2>Arrival @ViewBag.Arrival</h2>

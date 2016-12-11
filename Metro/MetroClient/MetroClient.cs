@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using MetroClient.Models;
+using MetroUtility;
 using Newtonsoft.Json.Linq;
 
 namespace MetroClient
@@ -27,9 +28,18 @@ namespace MetroClient
 			return ToVehichlesDto(GetJson($"routes/{routeId}/vehicles"));
 		}
 
-		public PredictionsDto GetPredictions(string stopId)
+		public PredictionsDto GetPredictions(string routeId, string stopId)
 		{
-			return ToPredictionsDto(GetJson($"stops/{stopId}/predictions/"));
+			return ToPredictionsDto(GetJson($"routes/{routeId}/stops/{stopId}/predictions/"));
+		}
+
+		public TravelInformationDto GetTravelInformationDto(string routeId, string departureStopId, string arrivalStopId)
+		{
+			return new TravelInformationDto
+			{
+				Message = "Looks like the bus driver is having a bad day today...",
+				TravelDurationMinutes = 30
+			};
 		}
 
 		private static RouteDto ToRouteDto(JObject route)
@@ -62,7 +72,7 @@ namespace MetroClient
 			{
 				Id = int.Parse(vehicle["id"].ToString()),
 				Heading = int.Parse(vehicle["heading"].ToString()),
-				RunId = vehicle["run_id"].ToString(),
+				RunId = vehicle["run_id"]?.ToString() ?? "",
 				Predictable = ToBool(vehicle["predictable"].ToString()),
 				RouteId =  vehicle["route_id"] != null
 					? int.Parse(vehicle["route_id"].ToString())
@@ -90,7 +100,7 @@ namespace MetroClient
 		{
 			return new StopsDto
 			{
-				Stops = stops["items"].Select(ToStopDto)
+				Stops = stops["items"].Select(ToStopDto).EmptyIfNull()
 			};
 		}
 
@@ -98,7 +108,7 @@ namespace MetroClient
 		{
 			return new VehiclesDtos
 			{
-				Vehicles = vehicles["items"].Select(ToVehicleDto)
+				Vehicles = vehicles["items"].Select(ToVehicleDto).EmptyIfNull()
 			};
 		}
 
@@ -106,7 +116,7 @@ namespace MetroClient
 		{
 			return new PredictionsDto
 			{
-				Predictions = predictions["items"].Select(ToPredictionDto)
+				Predictions = predictions["items"].Select(ToPredictionDto).EmptyIfNull()
 			};
 		}
 

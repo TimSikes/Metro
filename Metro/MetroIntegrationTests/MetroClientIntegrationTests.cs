@@ -30,8 +30,10 @@ namespace MetroIntegrationTests
 			MetroClient.MetroClient client = new MetroClient.MetroClient(new Uri(c_metroUri));
 
 			StopsDto stops = client.GetStops(routeId);
-			Assert.IsTrue(stops.Stops.Any());
-			Assert.IsTrue(stops.Stops.First().DisplayName != null);
+			Assert.IsTrue(stops.Stops != null);
+
+			if (stops.Stops.Any())
+				Assert.IsTrue(stops.Stops.First().DisplayName != null);
 		}
 
 		[TestCase("704")]
@@ -41,19 +43,19 @@ namespace MetroIntegrationTests
 		{
 			MetroClient.MetroClient client = new MetroClient.MetroClient(new Uri(c_metroUri));
 
-			VehiclesDtos stops = client.GetVehicles(routeId);
-			Assert.IsTrue(stops.Vehicles.Any());
+			VehiclesDtos vehicles = client.GetVehicles(routeId);
+			Assert.IsTrue(vehicles.Vehicles != null);
 		}
 
-		[TestCase("6033")]
-		[TestCase("16927")]
-		[TestCase("36587")]
-		public void GetPredictionsForStop(string stopId)
+		[TestCase("704", "06033")]
+		[TestCase("704", "16927")]
+		[TestCase("704", "14401")]
+		public void GetPredictionsForStop(string routeId, string stopId)
 		{
 			MetroClient.MetroClient client = new MetroClient.MetroClient(new Uri(c_metroUri));
 
-			PredictionsDto predictions = client.GetPredictions(stopId);
-			Assert.IsTrue(predictions.Predictions.Any());
+			PredictionsDto predictions = client.GetPredictions(routeId, stopId);
+			Assert.IsTrue(predictions.Predictions != null);
 		}
 
 
